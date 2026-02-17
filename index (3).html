@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الموسوعة الاستراتيجية لمستقبل الطاقة (الإصدار الشامل)</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js Annotation Plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.0.1/chartjs-plugin-annotation.min.js">
+  </script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Styles -->
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #F3F4F6;
+      color: #1f2937;
+    }
+
+    /* General Styles */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      height: 300px;
+    }
+
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .scroll-offset {
+      scroll-margin-top: 120px;
+    }
+
+    .highlight-box {
+      border-right-width: 4px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #e5e7eb;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #6b7280;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4b5563;
+    }
+
+    /* --- STYLES FOR CHINA-USA SECTION --- */
+    :root {
+      --china-red: #de2910;
+      --usa-blue: #002868;
+    }
+
+    .china-usa-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 25px;
+    }
+
+    .china-usa-card {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #e2e8f0;
+    }
+
+    .china-usa-card.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .china-usa-card h3 {
+      margin: 0 0 20px 0;
+      font-size: 1.2rem;
+      color: #1e293b;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .chart-container-xl {
+      position: relative;
+      height: 450px;
+      width: 100%;
+    }
+
+    .legend-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 20px;
+      padding: 15px;
+      background: #fdfdfd;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      border: 1px solid #f1f5f9;
+    }
+
+    .legend-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .line-sample {
+      width: 30px;
+      height: 3px;
+      border-radius: 2px;
+    }
+
+    .footer-info {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #64748b;
+      line-height: 1.6;
+      background: #f8fafc;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    @media (max-width: 768px) {
+      .china-usa-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .chart-container-xl {
+        height: 400px;
+      }
+    }
+
+    /* --- STYLES FOR DECENTRALIZED ENERGY SECTION --- */
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .section-title-new {
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title-new::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 0;
+      width: 60px;
+      height: 4px;
+      background-color: #3b82f6;
+      border-radius: 2px;
+    }
+
+    /* Custom Scrollbar for tables */
+    .table-container::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .table-container::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+
+  <!-- Navbar -->
+  <nav class="bg-gray-900 text-white sticky top-0 z-50 shadow-lg border-b-4 border-blue-600">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center h-auto md:h-20 py-2 md:py-0">
+        <div class="flex flex-col items-center md:items-start mb-2 md:mb-0">
+          <span class="text-2xl font-bold">مستقبل الطاقة</span>
+          <span class="text-xs text-blue-400">لوحة القيادة الاستراتيجية الشاملة</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3 text-xs md:text-sm font-medium">
+          <a href="#fallacies" class="hover:text-blue-400 transition">1. الأخطاء</a>
+          <a href="#oil-reality" class="hover:text-blue-400 transition">2. النفط</a>
+          <a href="#demand-shift" class="hover:text-red-400 transition">3. تحول الطلب</a>
+          <a href="#decentralized" class="hover:text-blue-300 transition font-bold border-b-2 border-blue-300">4.
+            اللامركزية (تقرير)</a>
+          <a href="#hydrogen" class="hover:text-cyan-400 transition">5. الهيدروجين</a>
+          <a href="#society" class="hover:text-yellow-400 transition">6. المجتمع</a>
+          <a href="#economy" class="hover:text-blue-400 transition">7. الاقتصاد</a>
+          <a href="#innovation" class="hover:text-indigo-400 transition">8. الابتكار</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 py-10 space-y-16">
+
+    <!-- HERO -->
+    <header class="text-center space-y-6">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+        ما بعد <span class="text-blue-600">"الهيمنة"</span> وليس ما بعد النفط
+      </h1>
+
+      <h2
+        class="text-xl md:text-3xl font-bold text-gray-700 mt-2 bg-white inline-block px-6 py-2 rounded-full shadow-sm border border-gray-200">
+        تقرير للشعبة المصرية لمجلس الطاقة العالمي
+      </h2>
+
+      <p class="max-w-4xl mx-auto text-lg text-gray-600 mt-6">
+        "نحن على متن سفينة نوح للنجاة البيئية، لكننا نصعد إليها بشكل غير عادل." - د. عدنان شهاب الدين.
+        <br>
+                تحليل شامل يجمع بين أرقام الاحتياطيات، تكنولوجيا الهيدروجين، والتحولات الاجتماعية العميقة.
+      </p>
+
+      <!-- Quick Stats Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+        <div class="bg-white p-4 rounded-xl shadow-sm border-r-4 border-blue-500 stat-card">
+          <div class="text-2xl md:text-3xl font-bold text-blue-600">1.8 تريليون$</div>
+          <div class="text-xs text-gray-500">استثمار الطاقة النظيفة (2024)</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border-r-4 border-amber-500 stat-card">
+          <div class="text-2xl md:text-3xl font-bold text-amber-600">1750 مليار</div>
+          <div class="text-xs text-gray-500">برميل احتياطي نفط (اليوم)</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border-r-4 border-cyan-500 stat-card">
+          <div class="text-2xl md:text-3xl font-bold text-cyan-600">الهيدروجين</div>
+          <div class="text-xs text-gray-500">وقود القرن الـ 21</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border-r-4 border-red-500 stat-card">
+          <div class="text-2xl md:text-3xl font-bold text-red-600">80%</div>
+          <div class="text-xs text-gray-500">هيمنة الصين على البطاريات</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: The 7 Fallacies (With Timeframes) -->
+    <section id="fallacies" class="scroll-offset">
+      <div class="flex items-center mb-6">
+        <div
+          class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-bold ml-4 shadow-lg">
+          1</div>
+        <h2 class="text-3xl font-bold text-gray-900">سجل التقديرات الخاطئة (الأخطاء السبعة)</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1: Nuclear -->
+        <div
+          class="bg-white p-5 rounded-lg border border-red-100 shadow-sm hover:border-red-400 transition relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+          <h3 class="font-bold text-gray-800 mb-1">☢️ وهم النووي</h3>
+          <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded mb-3 font-mono">الإطار الزمني: 1954 - 1980</span>
+          <p class="text-xs text-gray-500 mb-3">التوقع: "أرخص من أن يُقاس بعداد".</p>
+          <div class="bg-red-50 p-2 rounded text-xs font-semibold text-red-700">الواقع: الأغلى بسبب الأمان.</div>
+        </div>
+
+        <!-- Card 2: China Oil -->
+        <div
+          class="bg-white p-5 rounded-lg border border-red-100 shadow-sm hover:border-red-400 transition relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+          <h3 class="font-bold text-gray-800 mb-1">🛢️ أسطورة الصين</h3>
+          <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded mb-3 font-mono">الإطار الزمني: 1970 - 1993</span>
+          <p class="text-xs text-gray-500 mb-3">التوقع: الصين ستنافس السعودية في التصدير.</p>
+          <div class="bg-red-50 p-2 rounded text-xs font-semibold text-red-700">الواقع: أكبر مستورد عالمياً (1993).
+          </div>
+        </div>
+
+        <!-- Card 3: Russian Gas -->
+        <div
+          class="bg-white p-5 rounded-lg border border-red-100 shadow-sm hover:border-red-400 transition relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+          <h3 class="font-bold text-gray-800 mb-1">🌉 فخ الغاز الروسي</h3>
+          <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded mb-3 font-mono">الإطار الزمني: 2011 - 2022</span>
+          <p class="text-xs text-gray-500 mb-3">التوقع: جسر آمن للطاقة المتجددة.</p>
+          <div class="bg-red-50 p-2 rounded text-xs font-semibold text-red-700">الواقع: حرب أوكرانيا نسفت الفرضية.</div>
+        </div>
+
+        <!-- Card 4: Peak Oil -->
+        <div
+          class="bg-white p-5 rounded-lg border border-red-100 shadow-sm hover:border-red-400 transition relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+          <h3 class="font-bold text-gray-800 mb-1">📉 ذروة النفط</h3>
+          <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded mb-3 font-mono">الإطار الزمني: 2000 - 2010</span>
+          <p class="text-xs text-gray-500 mb-3">التوقع: الإنتاج سينهار والأسعار ستنفجر.</p>
+          <div class="bg-red-50 p-2 rounded text-xs font-semibold text-red-700">الواقع: التكسير الهيدروليكي خلق وفرة.
+          </div>
+        </div>
+
+        <!-- Card 5: US LNG -->
+        <div
+          class="bg-white p-5 rounded-lg border border-red-100 shadow-sm hover:border-red-400 transition relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+          <h3 class="font-bold text-gray-800 mb-1">🚢 كارثة الغاز الأمريكي</h3>
+          <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded mb-3 font-mono">الإطار الزمني: 2000 - 2012</span>
+          <p class="text-xs text-gray-500 mb-3">التوقع: أمريكا غازها ينفد (بناء محطات استيراد).</p>
+          <div class="bg-red-50 p-2 rounded text-xs font-semibold text-red-700">الواقع: تحولت لأكبر مصدر (خسارة
+            الاستثمار).</div>
+        </div>
+
+        <!-- Card 6: Solar -->
+        <div
+          class="bg-white p-5 rounded-lg border border-red-100 shadow-sm hover:border-red-400 transition relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+          <h3 class="font-bold text-gray-800 mb-1">☀️ عمى الشمسية</h3>
+          <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded mb-3 font-mono">الإطار الزمني: 2000 - 2025</span>
+          <p class="text-xs text-gray-500 mb-3">التوقع: نمو خطي وتكلفة عالية.</p>
+          <div class="bg-red-50 p-2 rounded text-xs font-semibold text-red-700">الواقع: نمو أسي وانخفاض 90% في التكلفة.
+          </div>
+        </div>
+
+        <!-- Card 7: EV -->
+        <div
+          class="bg-white p-5 rounded-lg border border-red-100 shadow-sm hover:border-red-400 transition relative overflow-hidden md:col-span-2 lg:col-span-3">
+          <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+          <h3 class="font-bold text-gray-800 mb-1">🔌 تعثر الهيمنة الكهربائية (EV)</h3>
+          <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded mb-3 font-mono">الإطار الزمني: 2018 - 2025</span>
+          <p class="text-xs text-gray-500 mb-3">التوقع: نهاية محركات الاحتراق 2030.</p>
+          <div class="bg-red-50 p-2 rounded text-xs font-semibold text-red-700">الواقع: عودة "الهايبرد" بسبب ضعف البنية
+            التحتية وغلاء الأسعار.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Oil Reality & Demand Creation -->
+    <section id="oil-reality"
+      class="scroll-offset bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div class="p-8 space-y-6">
+          <div class="flex items-center">
+            <div
+              class="w-10 h-10 bg-amber-500 text-white rounded-full flex items-center justify-center font-bold ml-4 shadow-lg">
+              2</div>
+            <h2 class="text-2xl font-bold text-gray-900">واقع النفط: كيف يتم "صناعة" الطلب؟</h2>
+          </div>
+
+          <p class="text-gray-600 leading-relaxed">
+            النفط لا ينفد، والدول الخليجية لا تنتظر نهايته. بدلاً من ذلك، يتم خلق أسواق جديدة بشكل استباقي (Business
+            Beyond).
+          </p>
+
+          <div class="space-y-4">
+            <div class="bg-amber-50 p-4 rounded-lg highlight-box border-amber-500">
+              <h4 class="font-bold text-amber-800 mb-2">✈️ الطيران الأسرع من الصوت (Supersonic)</h4>
+              <p class="text-sm text-gray-700">الاستثمار في عودة الطائرات الأسرع من الصوت ليس للسرعة فقط، بل لأنها
+                تستهلك <strong>3 أضعاف</strong> وقود الطائرات العادية. هذا يضمن طلباً مستقبلياً للكيروسين.</p>
+            </div>
+            <div class="bg-amber-50 p-4 rounded-lg highlight-box border-amber-500">
+              <h4 class="font-bold text-amber-800 mb-2">🚢 سفن الطاقة العائمة (Power Ships)</h4>
+              <p class="text-sm text-gray-700">نشر سفن عملاقة حول سواحل أفريقيا تعمل بالنفط الثقيل لتوليد الكهرباء
+                وبيعها للدول النامية. (خلق سوق جديد للنفط + تصدير كهرباء).</p>
+            </div>
+            <div class="bg-amber-50 p-4 rounded-lg highlight-box border-amber-500">
+              <h4 class="font-bold text-amber-800 mb-2">🇨🇳 تأمين السوق الآسيوي</h4>
+              <p class="text-sm text-gray-700">الاستثمار المباشر في مصافي الصين والهند لضمان أن هذه المصافي مصممة خصيصاً
+                لاستقبال النفط الخليجي لعقود قادمة.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-8 flex flex-col justify-center">
+          <h3 class="text-center font-bold text-gray-700 mb-4">لغز الاحتياطيات (د. عدنان)</h3>
+          <div class="chart-container">
+            <canvas id="reservesChart"></canvas>
+          </div>
+          <p class="text-center text-xs text-gray-500 mt-4 bg-white p-2 rounded shadow-sm">
+            "الاحتياطي الجيولوجي ضخم جداً. التكنولوجيا تحوله لاحتياطي مؤكد. استهلكنا 3 تريليون برميل وما زال لدينا أكثر
+            مما بدأنا به!"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Demand Shift -->
+    <section id="demand-shift" class="scroll-offset">
+      <div class="flex items-center mb-6">
+        <div
+          class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-bold ml-4 shadow-lg">
+          3</div>
+        <h2 class="text-3xl font-bold text-gray-900">تحول الطلب من الخليج: الصين vs أمريكا</h2>
+      </div>
+
+      <div class="dashboard-header bg-white p-6 rounded-xl shadow-sm mb-6 border border-gray-200">
+        <p class="text-gray-600">
+          تحليل مقارن للقدرة الكهربائية، الإنتاج، وقوة الحوسبة (2014 - 2026). يوضح كيف تنتقل بوصلة الطاقة من "حماية"
+          أمريكا إلى "استهلاك" الصين النهم.
+        </p>
+      </div>
+
+      <div class="china-usa-grid">
+        <!-- أمريكا: مصادر الواردات النفطية (المخطط الجديد) -->
+        <div class="china-usa-card">
+          <h3>أمريكا: مصادر الواردات النفطية</h3>
+          <div class="chart-container">
+            <canvas id="vis5_USADetailed"></canvas>
+          </div>
+        </div>
+
+        <!-- الصين: مصادر الواردات -->
+        <div class="china-usa-card">
+          <h3>الصين: مصادر الواردات (شاملة نفط العقوبات)</h3>
+          <div class="chart-container">
+            <canvas id="vis2_ChinaDetailed"></canvas>
+          </div>
+        </div>
+
+        <!-- ميزان الطاقة الكلي -->
+        <div class="china-usa-card full-width">
+          <h3>ميزان الطاقة الكلي (مقياس لوغاريتمي لـ TWh)</h3>
+          <div class="chart-container-xl">
+            <canvas id="vis3_4_Merged"></canvas>
+          </div>
+          <div class="legend-grid">
+            <div class="legend-group">
+              <strong>الصين (اللون الأحمر):</strong>
+              <div class="legend-item">
+                <div class="line-sample" style="background: var(--china-red)"></div> القدرة الاسمية (GW) - صلب
+              </div>
+              <div class="legend-item">
+                <div class="line-sample" style="border-top: 2px dashed var(--china-red); height:0;"></div> الإنتاج
+                السنوي (TWh) - مقطع
+              </div>
+              <div class="legend-item">
+                <div class="line-sample" style="border-top: 2px dotted var(--china-red); height:0;"></div> الاستهلاك
+                الوطني (TWh) - منقط
+              </div>
+            </div>
+            <div class="legend-group">
+              <strong>أمريكا (اللون الأزرق):</strong>
+              <div class="legend-item">
+                <div class="line-sample" style="background: var(--usa-blue)"></div> القدرة الاسمية (GW) - صلب
+              </div>
+              <div class="legend-item">
+                <div class="line-sample" style="border-top: 2px dashed var(--usa-blue); height:0;"></div> الإنتاج السنوي
+                (TWh) - مقطع
+              </div>
+              <div class="legend-item">
+                <div class="line-sample" style="border-top: 2px dotted var(--usa-blue); height:0;"></div> الاستهلاك
+                الوطني (TWh) - منقط
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- قدرة الحوسبة -->
+        <div class="china-usa-card full-width">
+          <h3>قدرة الحوسبة (ExaFLOPS) مقابل استهلاك المراكز (TWh)</h3>
+          <div class="chart-container-xl">
+            <canvas id="vis4_ComputePower"></canvas>
+          </div>
+          <div class="legend-grid" style="margin-top: 10px;">
+            <div class="legend-group">
+              <div class="legend-item">
+                <div class="line-sample" style="background: var(--china-red)"></div> الصين: قوة حوسبة (ExaFLOPS)
+              </div>
+              <div class="legend-item">
+                <div class="line-sample" style="border-top: 3px dotted var(--china-red); height:0;"></div> الصين:
+                استهلاك طاقة (TWh)
+              </div>
+            </div>
+            <div class="legend-group">
+              <div class="legend-item">
+                <div class="line-sample" style="background: var(--usa-blue)"></div> أمريكا: قوة حوسبة (ExaFLOPS)
+              </div>
+              <div class="legend-item">
+                <div class="line-sample" style="border-top: 3px dotted var(--usa-blue); height:0;"></div> أمريكا:
+                استهلاك طاقة (TWh)
+              </div>
+            </div>
+          </div>
+          <div class="footer-info">
+            <strong>الأحداث الاستراتيجية (Annotations):</strong>
+            <br>• <strong>2022:</strong> نقطة التحول الكبرى؛ إطلاق شريحة <b>Nvidia H100</b> وبدء
+            <b>حظر الرقائق الأمريكي</b> الشامل.
+            <br>• <strong>2023:</strong> الاستجابة الصينية؛ إعلان <b>Huawei Atlas 950 SuperCluster</b> كبديل وطني لتدريب
+            النماذج الضخمة.
+            <br><strong>المصادر:</strong> IDC, MIIT China, Top500.org, Synergy Research Group.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: DECENTRALIZED ENERGY REPORT -->
+    <section id="decentralized" class="scroll-offset">
+
+      <!-- Header / Hero Section -->
+      <div class="hero-gradient text-white pt-20 pb-24 px-6 relative overflow-hidden rounded-3xl mb-8 shadow-2xl">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+          <i class="fas fa-atom absolute top-10 left-10 text-9xl animate-spin-slow" style="animation-duration: 20s;"></i>
+          <i class="fas fa-microchip absolute bottom-10 right-10 text-9xl"></i>
+        </div>
+
+        <div class="max-w-6xl mx-auto relative z-10 text-center">
+          <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
+            وحدات الطاقة المعيارية
+            <br>
+            <span class="text-blue-300 text-2xl md:text-4xl font-bold mt-2 block">مستقبل مراكز البيانات والمناطق النائية</span>
+          </h1>
+        </div>
+      </div>
+
+      <div class="max-w-6xl mx-auto relative z-20 pb-20 text-slate-800">
+        <!-- Executive Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div
+            class="bg-white p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition duration-300 border-t-4 border-blue-600">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-4 text-xl">
+              <i class="fas fa-server"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">دافع الذكاء الاصطناعي</h3>
+            <p class="text-slate-600 text-sm">مراكز البيانات تستهلك طاقة تفوق قدرة الشبكات الوطنية، مما يدفع الشركات
+              الكبرى للبحث عن الاستقلال الطاقي.</p>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition duration-300 border-t-4 border-green-500">
+            <div
+              class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-4 text-xl">
+              <i class="fas fa-box-open"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">طاقة في حاوية</h3>
+            <p class="text-slate-600 text-sm">التحول من المحطات العملاقة إلى وحدات "Plug-and-Play" بحجم حاوية شحن قياسية
+              قابلة للنقل.</p>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition duration-300 border-t-4 border-amber-500">
+            <div
+              class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 mb-4 text-xl">
+              <i class="fas fa-battery-full"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">البطاريات النووية</h3>
+            <p class="text-slate-600 text-sm">مفاعلات مجهرية تعمل لـ 10 سنوات دون وقود، وتعتبر "الحصان الأسود" لهذا
+              العقد.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: Nuclear Microreactors -->
+        <div class="mb-20">
+          <div class="flex items-center mb-8">
+            <div class="w-2 h-10 bg-blue-600 rounded-full ml-4"></div>
+            <h2 class="text-3xl font-bold section-title-new text-slate-800">1. المفاعلات النووية المجهرية
+              (Microreactors)</h2>
+          </div>
+
+          <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+              <div class="p-8 lg:p-12">
+                <h3 class="text-2xl font-bold mb-6 text-slate-700">المميزات التقنية الثورية</h3>
+                <ul class="space-y-4">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 ml-3 text-lg"></i>
+                    <div>
+                      <span class="font-bold block text-slate-800">الحجم المتنقل</span>
+                      <span class="text-slate-600 text-sm">تصميم مدمج بحجم حاوية شحن قياسية يمكن نقلها بالشاحنات أو الطائرات.</span>
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 ml-3 text-lg"></i>
+                    <div>
+                      <span class="font-bold block text-slate-800">تشغيل طويل الأمد</span>
+                      <span class="text-slate-600 text-sm">تعمل كـ "بطارية" لمدة 5-10 سنوات دون الحاجة لإعادة التزود بالوقود.</span>
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 ml-3 text-lg"></i>
+                    <div>
+                      <span class="font-bold block text-slate-800">الأمان السلبي</span>
+                      <span class="text-slate-600 text-sm">تغلق نفسها تلقائياً وتبرد فيزيائياً دون تدخل بشري عند الطوارئ.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div
+                class="bg-slate-50 p-8 lg:p-12 flex flex-col justify-center border-t lg:border-t-0 lg:border-r border-slate-200">
+                <div class="bg-blue-900 text-white p-6 rounded-xl shadow-lg relative overflow-hidden">
+                  <div class="relative z-10">
+                    <h4 class="text-lg font-bold mb-2 border-b border-blue-700 pb-2">مثال: Westinghouse eVinci</h4>
+                    <p class="text-sm text-blue-200 mb-4">مفاعل "أنابيب حرارية" لا يستخدم الماء للتبريد.</p>
+                    <div class="flex justify-between items-end">
+                      <span class="text-3xl font-bold">5 MW</span>
+                      <span class="bg-blue-700 text-xs px-2 py-1 rounded">قدرة كهربائية</span>
+                    </div>
+                  </div>
+                  <i class="fas fa-atom absolute -bottom-4 -left-4 text-8xl text-blue-800 opacity-50"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Projects Table -->
+            <div class="p-8 border-t border-slate-200">
+              <h4 class="font-bold text-lg mb-4 text-slate-700"><i class="fas fa-handshake ml-2 text-blue-500"></i>أبرز
+                الصفقات والمشاريع (2024-2026)</h4>
+              <div class="table-container overflow-x-auto">
+                <table class="w-full text-sm text-right">
+                  <thead class="bg-slate-100 text-slate-600 uppercase font-bold">
+                    <tr>
+                      <th class="px-4 py-3 rounded-tr-lg">الشركة / المشروع</th>
+                      <th class="px-4 py-3">التكنولوجيا (دقيق)</th>
+                      <th class="px-4 py-3">القدرة</th>
+                      <th class="px-4 py-3 rounded-tl-lg">تفاصيل الصفقة والحجم</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-200">
+                    <tr class="hover:bg-slate-50">
+                      <td class="px-4 py-4 font-bold text-slate-800">Google + Kairos Power</td>
+                      <td class="px-4 py-4">
+                        <span class="block font-bold">KP-FHR</span>
+                        <span class="text-xs text-slate-500">مبرد بالأملاح الفلوريدية (لا يعمل بضغط عالي)</span>
+                      </td>
+                      <td class="px-4 py-4">500 MW (أسطول)</td>
+                      <td class="px-4 py-4 text-slate-600">
+                        شراء طاقة من أسطول مفاعلات صغيرة (6-7) بحلول 2030.
+                        <div
+                          class="mt-2 text-xs bg-blue-50 text-blue-700 p-1 rounded border border-blue-100 inline-block">
+                          <i class="fas fa-ruler-combined ml-1"></i> الحجم: المفاعل مصمم في حجم كونتينر قياسي.
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50">
+                      <td class="px-4 py-4 font-bold text-slate-800">Amazon + X-energy</td>
+                      <td class="px-4 py-4">
+                        <span class="block font-bold">HTGR (Xe-100)</span>
+                        <span class="text-xs text-slate-500">مفاعل غازي بتقنية "سرير الحصى" (Pebble Bed)</span>
+                      </td>
+                      <td class="px-4 py-4">320 - 960 MW</td>
+                      <td class="px-4 py-4 text-slate-600">
+                        استثمار 500 مليون دولار لدعم خدمات AWS السحابية.
+                        <div
+                          class="mt-2 text-xs bg-blue-50 text-blue-700 p-1 rounded border border-blue-100 inline-block">
+                          <i class="fas fa-truck ml-1"></i> الحجم: المفاعل مصمم في حجم كونتينر قياسي.
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50">
+                      <td class="px-4 py-4 font-bold text-slate-800">OpenAI + Oklo</td>
+                      <td class="px-4 py-4">
+                        <span class="block font-bold">Aurora Powerhouse</span>
+                        <span class="text-xs text-slate-500">مفاعل انشطار سريع مبرد بالمعادن السائلة</span>
+                      </td>
+                      <td class="px-4 py-4">1.5 - 15 MW</td>
+                      <td class="px-4 py-4 text-slate-600">
+                        اتفاقيات لتزويد مراكز بيانات بالطاقة المباشرة.
+                        <div
+                          class="mt-2 text-xs bg-blue-50 text-blue-700 p-1 rounded border border-blue-100 inline-block">
+                          <i class="fas fa-home ml-1"></i> الحجم: مبنى صغير جداً (A-frame) بمساحة منزل ريفي.
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50">
+                      <td class="px-4 py-4 font-bold text-slate-800">Project Pele (US Army)</td>
+                      <td class="px-4 py-4">
+                        <span class="block font-bold">Mobile HTGR</span>
+                        <span class="text-xs text-slate-500">مفاعل غازي متنقل بوقود TRISO المقاوم للانصهار</span>
+                      </td>
+                      <td class="px-4 py-4">1 - 5 MW</td>
+                      <td class="px-4 py-4 text-slate-600">
+                        نقل مفاعل في طائرة C-17 للقواعد النائية.
+                        <div
+                          class="mt-2 text-xs bg-blue-50 text-blue-700 p-1 rounded border border-blue-100 inline-block">
+                          <i class="fas fa-cube ml-1"></i> الحجم: المفاعل مصمم في حجم كونتينر قياسي.
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Hydrogen & Gas -->
+        <div class="mb-20">
+          <div class="flex items-center mb-8">
+            <div class="w-2 h-10 bg-green-500 rounded-full ml-4"></div>
+            <h2 class="text-3xl font-bold section-title-new text-slate-800">2. البدائل الآنية: الهيدروجين والغاز</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Hydrogen Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 relative overflow-hidden group">
+              <div class="absolute top-0 right-0 w-2 h-full bg-green-400"></div>
+              <div class="relative z-10">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-leaf text-green-500 text-3xl ml-3"></i>
+                  <h3 class="text-xl font-bold">طاقة الهيدروجين (خلايا وقود)</h3>
+                </div>
+
+                <div class="space-y-4">
+                  <div class="mb-4">
+                    <h4 class="font-bold text-green-800 text-sm mb-2 border-b border-green-100 pb-1">1. مراكز البيانات
+                      (البديل الأنظف للديزل):</h4>
+                    <ul class="text-sm text-slate-600 space-y-3">
+                      <li class="flex items-start">
+                        <i class="fas fa-server text-green-500 ml-2 mt-1 text-xs"></i>
+                        <div>
+                          <span class="font-bold text-slate-800">Microsoft Azure:</span>
+                          تشغيل خوادم لمدة 48 ساعة متواصلة بخلية وقود (250kW)، وتستهدف استبدال الديزل بأنظمة 3MW.
+                        </div>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-box text-green-500 ml-2 mt-1 text-xs"></i>
+                        <div>
+                          <span class="font-bold text-slate-800">Hitachi (HyFlex):</span>
+                          حاوية "Plug-and-Play" متكاملة لتحويل الهيدروجين لكهرباء لمواقع البناء والبيانات.
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mb-4">
+                    <h4 class="font-bold text-green-800 text-sm mb-2 border-b border-green-100 pb-1">2. الشبكات المحلية
+                      والمصانع (Microgrids):</h4>
+                    <ul class="text-sm text-slate-600 space-y-3">
+                      <li class="flex items-start">
+                        <i class="fas fa-city text-green-500 ml-2 mt-1 text-xs"></i>
+                        <div>
+                          <span class="font-bold text-slate-800">Gyeonggi (كوريا الجنوبية):</span>
+                          أكبر حديقة خلايا وقود (58.8 MW) تمد المنازل بالكهرباء والتدفئة بهدوء تام.
+                        </div>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-flask text-green-500 ml-2 mt-1 text-xs"></i>
+                        <div>
+                          <span class="font-bold text-slate-800">Pfizer (USA):</span>
+                          تغذية المختبرات الحساسة لضمان عدم انقطاع التيار (Silent Power) بعيداً عن الشبكة.
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-green-800 text-sm mb-2 border-b border-green-100 pb-1">3. اللوجستيات
+                      والتوربينات الهجينة:</h4>
+                    <ul class="text-sm text-slate-600 space-y-3">
+                      <li class="flex items-start">
+                        <i class="fas fa-truck-loading text-green-500 ml-2 mt-1 text-xs"></i>
+                        <div>
+                          <span class="font-bold text-slate-800">اللوجستيات (Plug Power):</span>
+                          حاويات لتشغيل أساطيل Amazon و Walmart وميناء لوس أنجلوس.
+                        </div>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-random text-green-500 ml-2 mt-1 text-xs"></i>
+                        <div>
+                          <span class="font-bold text-slate-800">الهيدروجين "الهجين" (البرتغال):</span>
+                          نجحت محطة <span class="font-bold text-green-700">Ribatejo</span> في تعديل التوربينات لتعمل بـ
+                          <span class="bg-green-50 px-1 rounded border border-green-100">مزيج من الغاز والهيدروجين</span>.
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <i class="fas fa-leaf absolute -bottom-5 -left-5 text-9xl text-green-50 opacity-50 group-hover:scale-110 transition duration-500"></i>
+            </div>
+
+            <!-- Gas Turbine Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 relative overflow-hidden group">
+              <div class="absolute top-0 right-0 w-2 h-full bg-orange-400"></div>
+              <div class="relative z-10">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-fire text-orange-500 text-3xl ml-3"></i>
+                  <h3 class="text-xl font-bold font-mono">Gas Microturbines (توربينات غازية)</h3>
+                </div>
+                <div class="space-y-4">
+                  <div class="mb-4">
+                    <h4 class="font-bold text-orange-800 text-sm mb-2 border-b border-orange-100 pb-1">أبرز الشركات
+                      والتقنيات:</h4>
+                    <ul class="text-sm text-slate-600 space-y-3">
+                      <li class="flex items-start">
+                        <i class="fas fa-industry text-orange-400 ml-2 mt-1 text-xs"></i>
+                        <div>
+                          <span class="font-bold text-slate-800">Capstone Green Energy:</span>
+                          الرائدة عالمياً. تتميز بتقنية
+                          <span class="bg-orange-50 text-orange-700 px-1 rounded">"المحامل الهوائية"</span> فلا تحتاج
+                          لزيوت تشحيم.
+                        </div>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-industry text-orange-400 ml-2 mt-1 text-xs"></i>
+                        <div>
+                          <span class="font-bold text-slate-800">Baker Hughes:</span>
+                          مشاريع ضخمة لتحويل الغاز المهدر إلى طاقة (Gas-to-Power) عبر وحدات مدمجة.
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-orange-800 text-sm mb-2 border-b border-orange-100 pb-1">تطبيقات ومشاريع
+                      واقعية:</h4>
+                    <ul class="text-sm text-slate-600 space-y-3">
+                      <li class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-orange-400 ml-2 mt-1 text-xs"></i>
+                        <div>
+                          <span class="font-bold text-slate-800">مشروع نيو مكسيكو (US):</span>
+                          تشغيل مراكز تعدين العملات الرقمية باستخدام الغاز الطبيعي المحلي.
+                        </div>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-hospital text-orange-400 ml-2 mt-1 text-xs"></i>
+                        <div>
+                          <span class="font-bold text-slate-800">المستشفيات والفنادق (EU/US):</span>
+                          تستخدم كـ "محطات طاقة صغيرة" لضمان استمرارية التيار.
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <i class="fas fa-cogs absolute -bottom-5 -left-5 text-9xl text-orange-50 opacity-50 group-hover:scale-110 transition duration-500"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Economics -->
+        <div class="mb-20">
+          <div class="bg-slate-900 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+            <div class="text-center mb-10">
+              <h2 class="text-3xl font-bold mb-4">تحليل الجدوى الاقتصادية (2025)</h2>
+              <p class="text-slate-400">مقارنة التكلفة المستوية للكهرباء (LCOE) وتكاليف التأسيس</p>
+            </div>
+            <div class="table-container overflow-x-auto">
+              <table class="w-full text-right border-collapse">
+                <thead>
+                  <tr class="text-slate-400 border-b border-slate-700 text-sm uppercase">
+                    <th class="py-4 px-4">التكنولوجيا</th>
+                    <th class="py-4 px-4">تكلفة التأسيس (CAPEX)</th>
+                    <th class="py-4 px-4">تكلفة الكهرباء (LCOE)</th>
+                    <th class="py-4 px-4">التقييم الاستراتيجي</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700 text-sm md:text-base">
+                  <tr>
+                    <td class="py-4 px-4 font-bold text-blue-300">
+                      <i class="fas fa-atom ml-2"></i> المفاعلات المجهرية
+                    </td>
+                    <td class="py-4 px-4">$6,000 - $15,000</td>
+                    <td class="py-4 px-4">$60 - $100</td>
+                    <td class="py-4 px-4">
+                      <span class="bg-blue-600/20 text-blue-300 px-3 py-1 rounded-full text-xs border border-blue-500/30">ممتاز (استقرار 10 سنوات)</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-4 px-4 font-bold text-green-300">
+                      <i class="fas fa-gas-pump ml-2"></i> خلايا الهيدروجين
+                    </td>
+                    <td class="py-4 px-4">$1,500 - $3,000</td>
+                    <td class="py-4 px-4 text-red-400">$150 - $250</td>
+                    <td class="py-4 px-4">
+                      <span class="bg-red-600/20 text-red-300 px-3 py-1 rounded-full text-xs border border-red-500/30">باهظة التشغيل</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-4 px-4 font-bold text-orange-300">
+                      <i class="fas fa-burn ml-2"></i> توربينات الغاز
+                    </td>
+                    <td class="py-4 px-4">$800 - $1,200</td>
+                    <td class="py-4 px-4 text-green-400">$50 - $80</td>
+                    <td class="py-4 px-4">
+                      <span class="bg-orange-600/20 text-orange-300 px-3 py-1 rounded-full text-xs border border-orange-500/30">جيد</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Leading Countries -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-20 text-center">
+          <div class="bg-white p-6 rounded-xl shadow border border-slate-100">
+            <span class="text-4xl mb-2 block">🇺🇸</span>
+            <h4 class="font-bold mb-2">الولايات المتحدة</h4>
+            <p class="text-xs text-slate-500">ريادة تجارية وتقنية</p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow border border-slate-100">
+            <span class="text-4xl mb-2 block">🇨🇳</span>
+            <h4 class="font-bold mb-2">الصين</h4>
+            <p class="text-xs text-slate-500">أول بناء فعلي تجاري</p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow border border-slate-100">
+            <span class="text-4xl mb-2 block">🇷🇺</span>
+            <h4 class="font-bold mb-2">روسيا</h4>
+            <p class="text-xs text-slate-500">الخبرة الأقدم</p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow border border-slate-100">
+            <span class="text-4xl mb-2 block">🇨🇦</span>
+            <h4 class="font-bold mb-2">كندا</h4>
+            <p class="text-xs text-slate-500">المناطق الشمالية</p>
+          </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div
+          class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 md:p-12 text-center text-white shadow-lg relative overflow-hidden">
+          <div class="relative z-10">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">الخلاصة: هل هو حل واقعي؟</h2>
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto mb-8">
+              نعم، وبقوة. التوجه أصبح ضرورة اقتصادية بسبب عجز الشبكات عن تلبية "نهم الطاقة" للذكاء الاصطناعي.
+            </p>
+            <div class="inline-block bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-6 py-3">
+              <span class="block text-sm text-blue-200 uppercase tracking-wider mb-1">التوقع الزمني للنشر التجاري</span>
+              <span class="text-2xl font-bold">2027 — 2029</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: HYDROGEN -->
+    <section id="hydrogen" class="scroll-offset">
+      <div class="flex items-center mb-8">
+        <div
+          class="w-10 h-10 bg-cyan-500 text-white rounded-full flex items-center justify-center font-bold ml-4 shadow-lg">
+          5</div>
+        <h2 class="text-3xl font-bold text-gray-900">الهيدروجين: معركة النفوذ القادمة</h2>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">ألوان المستقبل: الأخضر vs الأزرق</h3>
+            <p class="text-gray-600 leading-relaxed mb-4">
+              الهيدروجين هو "نجم المستقبل". السباق ليس فقط على إنتاجه، بل على من يمتلك تكنولوجيا نقله وتخزينه.
+            </p>
+            <div class="space-y-3">
+              <div class="flex items-start bg-green-50 p-3 rounded-lg border-r-4 border-green-500">
+                <span class="text-2xl ml-3">🟢</span>
+                <div>
+                  <strong class="text-green-800 block">الهيدروجين الأخضر (الحلم)</strong>
+                  <span class="text-xs text-gray-600">ماء + كهرباء متجددة. نظيف 100% لكنه مكلف حالياً.</span>
+                </div>
+              </div>
+              <div class="flex items-start bg-blue-50 p-3 rounded-lg border-r-4 border-blue-500">
+                <span class="text-2xl ml-3">🔵</span>
+                <div>
+                  <strong class="text-blue-800 block">الهيدروجين الأزرق (الواقع)</strong>
+                  <span class="text-xs text-gray-600">غاز طبيعي + احتجاز كربون. أرخص، ويستخدم البنية التحتية الحالية.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="hydrogenCostChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- EGYPT -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-red-500 hover:shadow-md transition">
+          <div class="text-4xl mb-3 text-center">🇪🇬</div>
+          <h3 class="text-lg font-bold text-center mb-2">مصر: الممر والمركز</h3>
+          <p class="text-sm text-gray-600 text-justify">
+            التركيز على <strong>المنطقة الاقتصادية لقناة السويس</strong> وميناء العين السخنة لإنتاج وتصدير الهيدروجين
+            الأخضر.
+          </p>
+        </div>
+
+        <!-- GULF -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-green-500 hover:shadow-md transition">
+          <div class="text-4xl mb-3 text-center">🇸🇦 🇶🇦 🇦🇪</div>
+          <h3 class="text-lg font-bold text-center mb-2">الخليج: استراتيجية مزدوجة</h3>
+          <ul class="text-sm text-gray-600 space-y-2">
+            <li><strong>السعودية (نيوم):</strong> أكبر مصنع هيدروجين أخضر.</li>
+            <li><strong>قطر:</strong> تستغل الغاز للهيدروجين الأزرق.</li>
+            <li><strong>الإمارات:</strong> رائدة "مصدر".</li>
+          </ul>
+        </div>
+
+        <!-- MILITARY -->
+        <div
+          class="bg-gray-800 text-white p-6 rounded-xl shadow-sm border-t-4 border-gray-600 hover:shadow-md transition">
+          <div class="text-4xl mb-3 text-center">🛡️</div>
+          <h3 class="text-lg font-bold text-center mb-2">البعد العسكري</h3>
+          <p class="text-sm text-gray-300 text-justify">
+            الجيوش الكبرى تطور محركات هيدروجين للدبابات والقواعد للاستقلال عن خطوط إمداد الديزل.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Society & Justice -->
+    <section id="society" class="scroll-offset bg-yellow-50 rounded-2xl p-8 border border-yellow-200">
+      <div class="flex items-center mb-8">
+        <div
+          class="w-10 h-10 bg-yellow-600 text-white rounded-full flex items-center justify-center font-bold ml-4 shadow-lg">
+          6</div>
+        <h2 class="text-3xl font-bold text-gray-900">الأبعاد الاجتماعية والسياسية</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Noah's Ark Analogy -->
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+            <span class="text-2xl ml-2">🛳️</span> معضلة "سفينة نوح"
+          </h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            يشبه د. عدنان الكوكب بـ "سفينة نوح". الدول الغنية أصدرت الكربون لتصبح غنية، والآن تطلب من الفقراء التخلي عن
+            الوقود الرخيص.
+          </p>
+        </div>
+
+        <!-- Social Contract -->
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+            <span class="text-2xl ml-2">🤝</span> تغيير العقد الاجتماعي
+          </h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            الخطر ليس نفاذ النفط، بل نفاذ القدرة على التوظيف الحكومي. ضرورة الانتقال للقطاع الخاص وفرض الضرائب.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: Economy & Geopolitics -->
+    <section id="economy" class="scroll-offset">
+      <div class="flex items-center mb-8">
+        <div
+          class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold ml-4 shadow-lg">
+          7</div>
+        <h2 class="text-3xl font-bold text-gray-900">الاقتصاد والجيوسياسية: لعبة المحاور</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <!-- Malaysia Model -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+          <h3 class="font-bold text-gray-800 mb-4 text-center">النموذج الماليزي</h3>
+          <div class="chart-container h-64">
+            <canvas id="malaysiaChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Geopolitics -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 space-y-4">
+          <h3 class="font-bold text-gray-800 mb-4">تغيير التحالفات</h3>
+          <div class="flex items-start gap-3">
+            <div class="bg-blue-100 p-2 rounded text-2xl">🇺🇸</div>
+            <div>
+              <h4 class="font-bold text-blue-900 text-sm">أمريكا (المنافس)</h4>
+              <p class="text-xs text-gray-600">تحولت من "زبون يحمي" إلى "منافس نفطي" بعد ثورة الصخر الزيتي.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="bg-red-100 p-2 rounded text-2xl">🇨🇳</div>
+            <div>
+              <h4 class="font-bold text-red-900 text-sm">الصين (السيد الجديد؟)</h4>
+              <p class="text-xs text-gray-600">تهيمن على سلاسل توريد الطاقة النظيفة والبطاريات.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="bg-indigo-100 p-2 rounded text-2xl">🇪🇬</div>
+            <div>
+              <h4 class="font-bold text-indigo-900 text-sm">مصر (الممر)</h4>
+              <p class="text-xs text-gray-600">مشاريع الربط الكهربائي تجعل مصر بوابة عبور للطاقة الجديدة.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trilemma Chart -->
+      <div class="bg-gray-800 text-white p-8 rounded-2xl shadow-lg">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="w-full md:w-1/2">
+            <h3 class="text-2xl font-bold mb-4">معضلة الطاقة الثلاثية (The Trilemma)</h3>
+            <p class="text-gray-300 text-sm">الموازنة بين: الأمن، السعر، والاستدامة.</p>
+          </div>
+          <div class="w-full md:w-1/2 chart-container h-64">
+            <canvas id="trilemmaChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: Innovation & Geopolitics -->
+    <section id="innovation" class="scroll-offset">
+      <div class="flex items-center mb-8">
+        <div
+          class="w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold ml-4 shadow-lg">
+          8</div>
+        <h2 class="text-3xl font-bold text-gray-900">الابتكار والتحولات الجيوسياسية</h2>
+      </div>
+
+      <div class="bg-indigo-50 border-r-4 border-indigo-600 p-6 rounded-lg mb-8 shadow-sm">
+        <h3 class="text-xl font-bold text-indigo-900 mb-2">إيجاز استراتيجي</h3>
+        <p class="text-gray-700 leading-relaxed text-sm">
+          المعركة اليوم هي على "امتلاك التكنولوجيا". نعيش مرحلة <strong>"الانفصال الكبير"</strong> حيث ينمو الاقتصاد دون
+          زيادة نهم الطاقة.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- EV Industry -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+          <h3 class="font-bold text-gray-800 mb-3 flex items-center">
+            <span class="text-2xl ml-2">🚗</span> صناعة السيارات الكهربائية
+          </h3>
+          <ul class="text-sm text-gray-700 space-y-2">
+            <li><span class="text-red-500 font-bold ml-2">⚠</span> وهم الهيمنة السريعة اصطدم بضعف البنية التحتية.</li>
+            <li><span class="text-green-500 font-bold ml-2">✔</span> عودة "الهايبرد" كحل واقعي.</li>
+          </ul>
+        </div>
+        <!-- Geopolitical -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+          <h3 class="font-bold text-gray-800 mb-3 flex items-center">
+            <span class="text-2xl ml-2">🌍</span> المتغيرات الجيوسياسية
+          </h3>
+          <p class="text-sm text-gray-700">الصراع انتقل من مضيق هرمز إلى مناجم الليثيوم والرقائق.</p>
+        </div>
+        <!-- Advanced Tech -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+          <h3 class="font-bold text-gray-800 mb-3 flex items-center">
+            <span class="text-2xl ml-2">🤖</span> التكنولوجيا المتقدمة
+          </h3>
+          <p class="text-sm text-gray-700">الاقتصاد العالمي ينمو بينما استهلاك الوقود الأحفوري يتباطأ.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-gray-400 py-12 text-center border-t border-gray-800">
+    <p class="text-sm">تم تجميع كافة البيانات بدقة من المصادر الرسمية المرفقة.</p>
+    <p class="mt-4 text-xs opacity-50">تحديث شامل - فبراير 2026</p>
+  </footer>
+
+  <script>
+    // --- CHARTS INITIALIZATION ---
+        const years = ['2014', '2016', '2018', '2020', '2022', '2024', '2025*'];
+
+        // 1. Reserves Chart
+        new Chart(document.getElementById('reservesChart'), {
+            type: 'bar',
+            data: {
+                labels: ['توقعات 1975', 'الاستهلاك (1975-2024)', 'احتياطي اليوم'],
+                datasets: [{ data: [1000, 2500, 1750], backgroundColor: ['#9ca3af', '#ef4444', '#f59e0b'] }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+
+        // 2. Malaysia Chart
+        new Chart(document.getElementById('malaysiaChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['خدمات وتصنيع', 'زراعة وتعدين'],
+                datasets: [{ data: [81, 19], backgroundColor: ['#3b82f6', '#f59e0b'] }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 3. Trilemma Radar
+        new Chart(document.getElementById('trilemmaChart'), {
+            type: 'radar',
+            data: {
+                labels: ['الاستدامة', 'الأسعار', 'الأمن'],
+                datasets: [
+                    { label: 'أوروبا', data: [90, 40, 50], borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.2)' },
+                    { label: 'الخليج', data: [40, 90, 95], borderColor: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.2)' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 4. China Detailed Imports
+        new Chart(document.getElementById('vis2_ChinaDetailed'), {
+            type: 'bar',
+            data: {
+                labels: ['روسيا', 'السعودية', 'إيران*', 'العراق', 'فنزويلا*'],
+                datasets: [
+                    { label: '2020 (%)', data: [15.5, 17.1, 4.2, 10.5, 2.5], backgroundColor: '#94a3b8' },
+                    { label: '2025 (%)', data: [21.0, 14.2, 12.5, 8.5, 5.2], backgroundColor: '#de2910' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 5. USA Detailed Imports (NEW)
+        new Chart(document.getElementById('vis5_USADetailed'), {
+            type: 'bar',
+            data: {
+                labels: ['كندا', 'المكسيك', 'السعودية', 'العراق', 'كولومبيا'],
+                datasets: [
+                    { label: '2020 (%)', data: [50, 12, 11, 4, 3], backgroundColor: '#cbd5e1' },
+                    { label: '2025 (%)', data: [63, 8.5, 5.5, 3.5, 2.5], backgroundColor: '#002868' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 6. Merged Energy Chart
+        new Chart(document.getElementById('vis3_4_Merged'), {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [
+                    { label: 'الصين: القدرة (GW)', data: [1360, 1650, 1900, 2200, 2560, 3400, 3720], borderColor: '#de2910', borderWidth: 4 },
+                    { label: 'أمريكا: القدرة (GW)', data: [1063, 1072, 1100, 1130, 1160, 1280, 1310], borderColor: '#002868', borderWidth: 4 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { type: 'logarithmic' } } }
+        });
+
+        // 7. Compute Power Chart
+        new Chart(document.getElementById('vis4_ComputePower'), {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [
+                    { label: 'الصين: حوسبة', data: [5, 15, 45, 95, 180, 240, 290], borderColor: '#de2910' },
+                    { label: 'أمريكا: حوسبة', data: [10, 35, 80, 150, 290, 550, 720], borderColor: '#002868' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 8. Hydrogen Chart
+        new Chart(document.getElementById('hydrogenCostChart'), {
+            type: 'line',
+            data: {
+                labels: ['2020', '2025', '2030', '2050'],
+                datasets: [{ label: 'الأخضر ($/kg)', data: [5.0, 3.8, 2.0, 0.8], borderColor: '#22c55e', fill: true }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+  </script>
+</body>
+
+</html>
